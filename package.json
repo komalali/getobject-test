@@ -1,0 +1,20 @@
+{
+    "name": "getobject-test",
+    "devDependencies": {
+        "@types/chai": "^4.2.14",
+        "@types/jest": "^26.0.19",
+        "@types/node": "^10.0.0",
+        "chai": "^4.2.0",
+        "cross-env": "^7.0.3",
+        "mocha": "^8.2.1",
+        "myc": "^1.0.1"
+    },
+    "dependencies": {
+        "@pulumi/pulumi": "^2.0.0",
+        "@pulumi/aws": "^3.0.0",
+        "@pulumi/awsx": "^0.22.0"
+    },
+    "scripts": {
+        "test": "cross-env PULUMI_TEST_CONFIG_FILE=tests/Pulumi.test.yaml mocha -r ts-node/register --reporter spec tests/**/*.ts"
+    }
+}

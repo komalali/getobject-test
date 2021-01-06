@@ -1,0 +1,4 @@
+name: getobject-test
+runtime: nodejs
+description: A small project to reproduce getObject failure when using PULUMI_CONFIG
+  env var
