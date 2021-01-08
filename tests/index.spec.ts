@@ -1,19 +1,12 @@
-const pulumiConfig = require('js-yaml').safeLoad(require('fs').readFileSync(process.env.PULUMI_TEST_CONFIG_FILE, 'utf8'));
-
-process.env.PULUMI_TEST_MODE = "true";
-process.env.PULUMI_NODEJS_STACK = "unit";
-process.env.PULUMI_NODEJS_PROJECT = "test"
-process.env.PULUMI_CONFIG = JSON.stringify(pulumiConfig.config);
-
+import * as automation from '@pulumi/pulumi/x/automation';
 import {expect} from 'chai';
-import {roles} from '../index';
+import {asyncTest} from './utils';
 
-describe("index", function () {
-    it(`bar role should be defined`, function (done) {
-        expect(roles).to.contain('bar');
-    });
-
-    it(`foo role should be defined`, function (done) {
-        expect(roles).to.contain('foo');
-    });
+describe('index', function () {
+    it(`reads config correctly`, asyncTest(async() => {
+        const ws = await automation.LocalWorkspace.create({ workDir: __dirname });
+        const settings = await ws.stackSettings('test');
+        expect(settings.config!['test:roles']).to.contain('bar');
+        expect(settings.config!['test:roles']).to.contain('foo');
+    }))
 });
